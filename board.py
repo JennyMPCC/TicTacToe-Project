@@ -9,6 +9,8 @@ from config import EMPTY_CELL
 
 class Board:
     """Manages the game board state and enforces game rules."""
+
+    # PUBLIC METHODS   
     
     def __init__(self, size: int = 3):
         """
@@ -54,23 +56,22 @@ class Board:
     
     def check_winner(self) -> str | None:
         """
-        Check if there is a winner.
-        
+        Returns the winning player's symbol if any, or None if there is no winner.
+
+        Preconditions:
+            The board state is valid, with only one winner at most.
+
         Returns:
-            str | None: "X", "O", or None if no winner yet
+            str of winner's symbol or None depending on state
         """
-        # Check rows
-        for row in range(self.size):
-            if self.grid[row][0] != EMPTY_CELL:
-                if all(self.grid[row][col] == self.grid[row][0] for col in range(self.size)):
-                    return self.grid[row][0]
-        
-        # Check columns
-        for col in range(self.size):
-            if self.grid[0][col] != EMPTY_CELL:
-                if all(self.grid[row][col] == self.grid[0][col] for row in range(self.size)):
-                    return self.grid[0][col]
-        
+        # Check for wins in every row and column
+        for i in range(self.size):
+            # Check if all symbols in this row or column match one non-empty symbol
+            if self.grid[i][i] != EMPTY_CELL:
+                if (all(self.grid[i][col] == self.grid[i][i] for col in range(self.size))
+                or  all(self.grid[row][i] == self.grid[i][i] for row in range(self.size))):
+                    return self.grid[i][i]
+            
         # Check main diagonal (top-left to bottom-right)
         if self.grid[0][0] != EMPTY_CELL:
             if all(self.grid[i][i] == self.grid[0][0] for i in range(self.size)):
@@ -80,8 +81,10 @@ class Board:
         if self.grid[0][self.size - 1] != EMPTY_CELL:
             if all(self.grid[i][self.size - 1 - i] == self.grid[0][self.size - 1] for i in range(self.size)):
                 return self.grid[0][self.size - 1]
-        
+
+        # Once at this point: no wins found.
         return None
+
     
     def is_full(self) -> bool:
         """
@@ -144,18 +147,29 @@ class Board:
         Returns:
             str: Formatted board display
         """
-        lines = []
+        return self.to_string()
+    
+    def to_string(self) -> str:
+        """
+        String representation of the board for display.
         
-        # Create column headers
-        col_headers = "   " + "   ".join(str(i) for i in range(self.size))
-        lines.append(col_headers)
-        lines.append("  " + "----" * self.size)
-        
-        # Create rows with row numbers
-        for row_idx in range(self.size):
-            row_str = f"{row_idx} | " + " | ".join(self.grid[row_idx][col] for col in range(self.size)) + " |"
-            lines.append(row_str)
-            if row_idx < self.size - 1:
-                lines.append("  " + "----" * self.size)
-        
-        return "\n".join(lines)
+        Returns:
+            str: Formatted board display
+        """
+        # Initialize board string with spacing for formatting
+        board_str = "     "
+
+        # Add column coordinates
+        for i in range(self.size):
+            board_str += "%2d  " % i
+        board_str += "\n"
+        board_str += "    " + "----" * self.size + "-\n"  # Add dividing line
+
+        # Add each row of the grid plus row coordinates on the left side
+        for i in range(self.size):
+            board_str += "%2d " % i # Add row coordinate
+            for j in range(self.size):
+                board_str += " | %s" % self.grid[i][j] #Add symbol at coordinate and dividing lines
+            board_str += " |\n"
+            board_str += "    " + "----" * self.size + "-\n" # Add dividing line
+        return board_str
