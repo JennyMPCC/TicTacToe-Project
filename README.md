@@ -10,7 +10,7 @@
    - Basic Player and HumanPlayer classes
    - Simple game loop without AI
 
-2. **Phase 2**: Data structure
+2. **Phase 2**: Data structure (Completed)
    - LosingStateNode and LosingStateTree
    - Test BST independently
 
