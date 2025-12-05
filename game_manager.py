@@ -40,20 +40,22 @@ class GameManager:
         self.player_o = None
         self.current_player = None
         self.games_played = 0
+        self.losing_tree = LosingStateTree()  # Shared learning tree
+        self.ai_player = None  # Track AI player for learning
     
     def setup_players(self):
         """Initialize human and AI players."""
         print("\n=== Tic-Tac-Toe Game Setup ===")
         
-        #Phase 4: AI Player
+        # Phase 4: AI Player with shared losing tree
         self.player_x = HumanPlayer(SYMBOL_X)
-       # self.player_o = HumanPlayer(SYMBOL_O)
-        self.player_o = AIPlayer(SYMBOL_O, LosingStateTree())
+        self.player_o = AIPlayer(SYMBOL_O, self.losing_tree)
+        self.ai_player = self.player_o  # Track AI for learning
         
         # X always starts first
         self.current_player = self.player_x
         
-        print(f"\nPlayer {SYMBOL_X} vs Player {SYMBOL_O}")
+        print(f"\nPlayer {SYMBOL_X} (Human) vs Player {SYMBOL_O} (AI)")
         print(f"Player {SYMBOL_X} goes first!\n")
     
     def play_game(self):
@@ -110,6 +112,11 @@ class GameManager:
         print("\n" + "="*40)
         if winner:
             print(f"🎉 Player {winner} WINS! 🎉")
+            
+            # Trigger AI learning if human won (AI lost)
+            if winner == SYMBOL_X and self.ai_player:
+                print("AI is learning from this loss...")
+                self.ai_player.learn_from_loss(self.board)
         else:
             print("🤝 It's a DRAW! 🤝")
         print("="*40)

@@ -34,12 +34,8 @@ class AIPlayer(Player):
             symbol: The player's symbol ("X" or "O")
             losing_tree: Reference to the BST of losing board states
         """
+        super().__init__(symbol)
         self.losing_tree = losing_tree
-        self.symbol = symbol
-        self.previous_board = None
-        
-
-        pass
     
     def choose_move(self, board: Board) -> tuple[int, int]:
         """
@@ -51,27 +47,24 @@ class AIPlayer(Player):
         Returns:
             tuple[int, int]: (row, col) coordinates of chosen move
         """
-
-        possible_moves = board.get_empty_cells()
-        choice = None
-
-        while(possible_moves):
-            row, col = random.choice(possible_moves)
+        empty_cells = board.get_empty_cells()
+        safe_moves = []
+        unsafe_moves = []
+        
+        # Evaluate each possible move
+        for row, col in empty_cells:
             if self._evaluate_move(board, row, col):
-                choice = (row, col)
-                break
+                safe_moves.append((row, col))
             else:
-                possible_moves.remove((row, col))
-
-
-        if choice is None:
-            choice = random.choice(board.get_empty_cells())
-
-        self.previous_board = board.clone().apply_move(choice[0], choice[1], self.symbol)
-
-        return choice
-
-        pass
+                unsafe_moves.append((row, col))
+        
+        # Prefer safe moves, fall back to unsafe if needed
+        if safe_moves:
+            print("AI chooses a safe move.")
+            return random.choice(safe_moves)
+        else:
+            print("AI has no safe moves, choosing an unsafe move.")
+            return random.choice(unsafe_moves)
     
     def learn_from_loss(self, board: Board):
         """
@@ -80,10 +73,9 @@ class AIPlayer(Player):
         Args:
             board: The final board state when AI lost
         """
-
-
-
-        pass
+        losing_state = board.to_flat_list()
+        self.losing_tree.insert(losing_state)
+        print(f"AI learned to avoid state: {losing_state}")
     
     def _evaluate_move(self, board: Board, row: int, col: int) -> bool:
         """
@@ -97,12 +89,12 @@ class AIPlayer(Player):
         Returns:
             bool: True if move is safe (not in losing states), False if unsafe
         """
-
+        # Clone board and simulate the move
         temp_board = board.clone()
         temp_board.apply_move(row, col, self.symbol)
-
-        if self.losing_tree.contains(temp_board):
-            return False
         
-        return True
-        pass
+        # Convert to flat list for BST lookup
+        state = temp_board.to_flat_list()
+        
+        # Return True if safe (not in losing tree), False if unsafe
+        return not self.losing_tree.contains(state)
