@@ -1,6 +1,21 @@
 """
-Board module for Tic-Tac-Toe game.
-Manages the game board state and enforces game rules.
+Tic Tac Toe AI with BST Project
+Fal25 CS034 | CRN: 78704
+Group 2:
+    Jenny Morris
+    Chih-Hsiang Chang
+    Nathaniel John Hernandez
+    
+
+File:
+    Board class - board.py
+
+    Board module for Tic-Tac-Toe game.
+    Manages the game board state and enforces game rules.
+
+To Do:
+    Complete
+
 """
 
 import copy

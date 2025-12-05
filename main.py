@@ -1,5 +1,20 @@
 """
-Main entry point for Tic-Tac-Toe game.
+Tic Tac Toe AI with BST Project
+Fal25 CS034 | CRN: 78704
+Group 2:
+    Jenny Morris
+    Chih-Hsiang Chang
+    Nathaniel John Hernandez
+    
+
+File:
+    Main - main.py
+
+    Main entry point for Tic-Tac-Toe game.
+
+To Do:
+    ???
+
 """
 
 from game_manager import GameManager

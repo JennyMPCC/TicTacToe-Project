@@ -1,6 +1,21 @@
 """
-AI Player module for Tic-Tac-Toe game.
-Implements the learning AI opponent.
+Tic Tac Toe AI with BST Project
+Fal25 CS034 | CRN: 78704
+Group 2:
+    Jenny Morris
+    Chih-Hsiang Chang
+    Nathaniel John Hernandez
+    
+
+File:
+    AI Player class - ai_player.py
+
+    AI Player module for Tic-Tac-Toe game.
+    Implements the learning AI opponent.
+
+To Do:
+    Write functions
+
 """
 
 from player import Player

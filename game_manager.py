@@ -1,6 +1,21 @@
 """
-Game Manager module for Tic-Tac-Toe game.
-Orchestrates the game flow and manages game state.
+Tic Tac Toe AI with BST Project
+Fal25 CS034 | CRN: 78704
+Group 2:
+    Jenny Morris
+    Chih-Hsiang Chang
+    Nathaniel John Hernandez
+    
+
+File:
+    Game Manager class - game_manager.py
+
+    Game Manager module for Tic-Tac-Toe game.
+    Orchestrates the game flow and manages game state.
+
+To Do:
+    ???
+
 """
 
 from board import Board

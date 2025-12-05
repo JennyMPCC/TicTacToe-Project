@@ -1,6 +1,21 @@
 """
-Player module for Tic-Tac-Toe game.
-Defines base Player class and HumanPlayer implementation.
+Tic Tac Toe AI with BST Project
+Fal25 CS034 | CRN: 78704
+Group 2:
+    Jenny Morris
+    Chih-Hsiang Chang
+    Nathaniel John Hernandez
+    
+
+File:
+    Player class - player.py
+
+    Player module for Tic-Tac-Toe game.
+    Defines base Player class and HumanPlayer implementation.
+
+To Do:
+    ???
+
 """
 
 from board import Board
