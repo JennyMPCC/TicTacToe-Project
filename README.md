@@ -5,12 +5,12 @@
 
 ## Implementation Priority
 
-1. **Phase 1**: Core game mechanics (Completed)
+1. **Phase 1**: Core game mechanics (Completed ✓)
    - Board class with all methods
    - Basic Player and HumanPlayer classes
    - Simple game loop without AI
 
-2. **Phase 2**: Data structure (Completed)
+2. **Phase 2**: Data structure (Completed ✓)
    - LosingStateNode and LosingStateTree
    - Test BST independently
 
@@ -26,6 +26,6 @@
 5. **Phase 5** (Optional): Enhancements
    - File persistence
    - GUI integration
-   - Variable board sizes
+   - Variable board sizes ✓
 
 ---
