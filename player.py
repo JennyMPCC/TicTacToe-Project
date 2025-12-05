@@ -9,15 +9,14 @@ from board import Board
 class Player:
     """Abstract base class defining the player interface."""
     
-    def __init__(self, symbol: str, name: str):
+    def __init__(self, symbol: str):
         """
         Initialize a player.
         
         Args:
             symbol: The player's symbol ("X" or "O")
-            name: Player's name for display
         """
-        pass
+        self.symbol = symbol
     
     def choose_move(self, board: Board) -> tuple[int, int]:
         """
@@ -30,21 +29,20 @@ class Player:
         Returns:
             tuple[int, int]: (row, col) coordinates of chosen move
         """
-        pass
+        raise NotImplementedError("Subclasses must implement choose_move()")
 
 
 class HumanPlayer(Player):
     """Handles human player input."""
     
-    def __init__(self, symbol: str, name: str = "Human"):
+    def __init__(self, symbol: str):
         """
         Initialize a human player.
         
         Args:
             symbol: The player's symbol ("X" or "O")
-            name: Player's name (default: "Human")
         """
-        pass
+        super().__init__(symbol)
     
     def choose_move(self, board: Board) -> tuple[int, int]:
         """
@@ -56,4 +54,18 @@ class HumanPlayer(Player):
         Returns:
             tuple[int, int]: (row, col) coordinates of chosen move
         """
-        pass
+        while True:
+            try:
+                print(f"\nPlayer {self.symbol}'s turn")
+                row = int(input(f"Enter row (0-{board.size - 1}): "))
+                col = int(input(f"Enter column (0-{board.size - 1}): "))
+                
+                if board.is_valid_move(row, col):
+                    return (row, col)
+                else:
+                    print("Invalid move! Cell is either occupied or out of bounds. Try again.")
+            except ValueError:
+                print("Invalid input! Please enter numbers only.")
+            except KeyboardInterrupt:
+                print("\nGame interrupted by user.")
+                raise

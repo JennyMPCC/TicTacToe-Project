@@ -11,14 +11,13 @@ from losing_tree import LosingStateTree
 class AIPlayer(Player):
     """Implements the learning AI opponent."""
     
-    def __init__(self, symbol: str, losing_tree: LosingStateTree, name: str = "AI"):
+    def __init__(self, symbol: str, losing_tree: LosingStateTree):
         """
         Initialize an AI player.
         
         Args:
             symbol: The player's symbol ("X" or "O")
             losing_tree: Reference to the BST of losing board states
-            name: Player's name (default: "AI")
         """
         pass
     
