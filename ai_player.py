@@ -60,10 +60,8 @@ class AIPlayer(Player):
         
         # Prefer safe moves, fall back to unsafe if needed
         if safe_moves:
-            print("AI chooses a safe move.")
             return random.choice(safe_moves)
         else:
-            print("AI has no safe moves, choosing an unsafe move.")
             return random.choice(unsafe_moves)
     
     def learn_from_loss(self, board: Board):
