@@ -3,7 +3,7 @@
 
 ---
 
-## 11. Implementation Priority
+## Implementation Priority
 
 1. **Phase 1**: Core game mechanics (Completed)
    - Board class with all methods
