@@ -21,6 +21,8 @@ To Do:
 from board import Board
 from player import Player, HumanPlayer
 from config import SYMBOL_X, SYMBOL_O
+from ai_player import AIPlayer 
+from losing_tree import LosingStateTree
 
 
 class GameManager:
@@ -43,9 +45,10 @@ class GameManager:
         """Initialize human and AI players."""
         print("\n=== Tic-Tac-Toe Game Setup ===")
         
-        # For Phase 1, both players are human
+        #Phase 4: AI Player
         self.player_x = HumanPlayer(SYMBOL_X)
-        self.player_o = HumanPlayer(SYMBOL_O)
+       # self.player_o = HumanPlayer(SYMBOL_O)
+        self.player_o = AIPlayer(SYMBOL_O, LosingStateTree())
         
         # X always starts first
         self.current_player = self.player_x
