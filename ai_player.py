@@ -14,7 +14,7 @@ File:
     Implements the learning AI opponent.
 
 To Do:
-    Write functions
+    Complete
 
 """
 import random

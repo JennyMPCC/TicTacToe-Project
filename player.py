@@ -14,7 +14,7 @@ File:
     Defines base Player class and HumanPlayer implementation.
 
 To Do:
-    ???
+    Complete
 
 """
 
