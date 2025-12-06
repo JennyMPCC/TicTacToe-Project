@@ -20,9 +20,10 @@ To Do:
 
 from board import Board
 from player import Player, HumanPlayer
-from config import SYMBOL_X, SYMBOL_O
+from config import SYMBOL_X, SYMBOL_O, SAVE_FILE, AUTO_SAVE
 from ai_player import AIPlayer 
 from losing_tree import LosingStateTree
+import os
 
 
 class GameManager:
@@ -41,6 +42,15 @@ class GameManager:
         self.current_player = None
         self.games_played = 0
         self.losing_tree = LosingStateTree()  # Shared learning tree
+        
+        # Load existing losing states if available
+        if os.path.exists(SAVE_FILE):
+            try:
+                self.losing_tree.load_from_file(SAVE_FILE)
+                print(f"Loaded losing states from {SAVE_FILE}")
+            except Exception as e:
+                print(f"Error loading losing states: {e}")
+
         self.ai_player = None  # Track AI player for learning
         self.last_ai_state = None # Track state after AI's last move
     
@@ -126,6 +136,14 @@ class GameManager:
                     self.ai_player.learn_from_loss(self.last_ai_state)
                 else:
                     self.ai_player.learn_from_loss(self.board)
+                
+                # Save updated tree to file
+                if AUTO_SAVE:
+                    try:
+                        self.losing_tree.save_to_file(SAVE_FILE)
+                        print(f"Saved losing states to {SAVE_FILE}")
+                    except Exception as e:
+                        print(f"Error saving losing states: {e}")
         else:
             print("🤝 It's a DRAW! 🤝")
         print("="*40)
