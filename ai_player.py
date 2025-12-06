@@ -64,14 +64,18 @@ class AIPlayer(Player):
         else:
             return random.choice(unsafe_moves)
     
-    def learn_from_loss(self, board: Board):
+    def learn_from_loss(self, board: Board | list[str]):
         """
         Store the final losing board state in the BST.
         
         Args:
-            board: The final board state when AI lost
+            board: The final board state when AI lost, or the flat list state
         """
-        losing_state = board.to_flat_list()
+        if isinstance(board, list):
+            losing_state = board
+        else:
+            losing_state = board.to_flat_list()
+            
         self.losing_tree.insert(losing_state)
         print(f"AI learned to avoid state: {losing_state}")
     

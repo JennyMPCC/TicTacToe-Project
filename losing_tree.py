@@ -96,14 +96,16 @@ class LosingStateTree:
         
         Args:
             node: Current node in traversal
-            state: State to search for
+            state: State to search for`
             
         Returns:
             bool: True if state found, False otherwise
         """
         if node is None:
+            print("Reached leaf node; state not found.")
             return False
         if state == node.state:
+            print("Found losing state in BST.")
             return True
         if state < node.state:
             return self._contains_recursive(node.left, state)

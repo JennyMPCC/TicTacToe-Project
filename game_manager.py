@@ -42,6 +42,7 @@ class GameManager:
         self.games_played = 0
         self.losing_tree = LosingStateTree()  # Shared learning tree
         self.ai_player = None  # Track AI player for learning
+        self.last_ai_state = None # Track state after AI's last move
     
     def setup_players(self):
         """Initialize human and AI players."""
@@ -66,6 +67,7 @@ class GameManager:
         
         self.board.reset()
         self.current_player = self.player_x
+        self.last_ai_state = None
         
         while True:
             # Display current board
@@ -76,6 +78,10 @@ class GameManager:
             
             # Apply the move
             self.board.apply_move(row, col, self.current_player.symbol)
+
+            # Capture AI state
+            if self.current_player == self.ai_player:
+                self.last_ai_state = self.board.to_flat_list()
             
             # Check for winner
             winner = self.board.check_winner()
@@ -116,7 +122,10 @@ class GameManager:
             # Trigger AI learning if human won (AI lost)
             if winner == SYMBOL_X and self.ai_player:
                 print("AI is learning from this loss...")
-                self.ai_player.learn_from_loss(self.board)
+                if self.last_ai_state:
+                    self.ai_player.learn_from_loss(self.last_ai_state)
+                else:
+                    self.ai_player.learn_from_loss(self.board)
         else:
             print("🤝 It's a DRAW! 🤝")
         print("="*40)
