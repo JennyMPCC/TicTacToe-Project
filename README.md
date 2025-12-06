@@ -34,10 +34,6 @@ Learning Tic-Tac-Toe AI with Binary Trees (CS034, CRN 78704) — Group 2
 - AI learning: records final losing states, checks BST before choosing moves, prefers safe options.
 - Optional persistence: JSON save/load of losing states controlled in `config.py`.
 
-## Testing
-- Lightweight tests are provided (e.g., `test_phase1.py`, `test_ai_learning.py`).
-- Run all tests from the repo root: `py -m pytest`
-
 ## Notes and Limitations
 - Console-based interaction only; any GUI would be additive.
 - Tree growth is unbounded; for very large play volumes you may want pruning or deduplication strategies.
